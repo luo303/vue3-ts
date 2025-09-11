@@ -1,5 +1,8 @@
 import { globalIgnores } from 'eslint/config'
-import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
+import {
+  defineConfigWithVueTs,
+  vueTsConfigs
+} from '@vue/eslint-config-typescript'
 import pluginVue from 'eslint-plugin-vue'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 import prettierPlugin from 'eslint-plugin-prettier'
@@ -7,7 +10,7 @@ import prettierPlugin from 'eslint-plugin-prettier'
 export default defineConfigWithVueTs(
   {
     name: 'app/files-to-lint',
-    files: ['**/*.{ts,mts,tsx,vue}'],
+    files: ['**/*.{ts,mts,tsx,vue}']
   },
 
   globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
@@ -15,8 +18,8 @@ export default defineConfigWithVueTs(
   // 引入Prettier插件（关键步骤）
   {
     plugins: {
-      prettier: prettierPlugin,
-    },
+      prettier: prettierPlugin
+    }
   },
 
   pluginVue.configs['flat/essential'],
@@ -49,7 +52,7 @@ export default defineConfigWithVueTs(
       // ],
 
       // 启用Prettier作为ESLint规则（现在可以正常工作了）
-      'prettier/prettier': 'warn',
-    },
-  },
+      'prettier/prettier': 'warn'
+    }
+  }
 )
