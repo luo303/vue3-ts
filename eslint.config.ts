@@ -30,7 +30,13 @@ export default defineConfigWithVueTs(
 
       // TypeScript 规则：禁止使用 any 类型
       '@typescript-eslint/no-explicit-any': 'warn',
+
+      // 控制空行数量，禁止多余空行
+      'no-multiple-empty-lines': ['warn', {
+        max: 1,           // 最多允许1个连续空行
+        maxEOF: 0,        // 文件末尾不允许空行
+        maxBOF: 0         // 文件开头不允许空行
+      }]
     }
   }
 )
-
