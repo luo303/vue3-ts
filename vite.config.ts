@@ -20,5 +20,14 @@ export default defineConfig({
     alias: {
       '@': path.resolve('./src')
     }
+  },
+  //scss全局变量配置
+  css: {
+    preprocessorOptions: {
+      scss: {
+        //scss已经废弃·@import，所以改用@use
+        additionalData: '@use "@/styles/variable.scss" as *;\n'
+      }
+    }
   }
 })
