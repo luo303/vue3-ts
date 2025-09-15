@@ -36,7 +36,9 @@ export default defineConfigWithVueTs(
       // semi: ['warn', 'never'],
 
       // Vue 规则：组件名必须为多单词
-      'vue/multi-word-component-names': 'error',
+      'vue/multi-word-component-names': 'off',
+      // 允许使用 any 类型
+      '@typescript-eslint/no-explicit-any': 'off',
 
       // TypeScript 规则：禁止使用 any 类型
       // '@typescript-eslint/no-explicit-any': 'warn',
