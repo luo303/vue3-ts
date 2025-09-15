@@ -2,10 +2,10 @@
 import request from '@/utils/request'
 import { onMounted } from 'vue'
 onMounted(() => {
-  const res = request.get('/api/user/info')
+  const res = request.get('/user/info')
   console.log(res)
+  console.log(import.meta.env.VITE_APP_BASE_API)
 })
-console.log(import.meta.env)
 </script>
 
 <template>
