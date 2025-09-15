@@ -39,7 +39,7 @@ export default defineConfigWithVueTs(
       'vue/multi-word-component-names': 'error',
 
       // TypeScript 规则：禁止使用 any 类型
-      '@typescript-eslint/no-explicit-any': 'warn',
+      // '@typescript-eslint/no-explicit-any': 'warn',
 
       // // 控制空行数量，禁止多余空行
       // 'no-multiple-empty-lines': [

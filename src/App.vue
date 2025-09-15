@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import request from '@/utils/request'
+import { onMounted } from 'vue'
+onMounted(() => {
+  const res = request.get('/api/user/info')
+  console.log(res)
+})
 console.log(import.meta.env)
 </script>
 
