@@ -46,7 +46,8 @@ import { Lock, User } from '@element-plus/icons-vue'
 import { reqLogin } from '@/api/user'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElNotification } from 'element-plus'
+import { gettime } from '@/utils/time'
 const formRef = ref()
 const rules = ref({
   username: [
@@ -64,15 +65,18 @@ const formdata = ref({
   username: '',
   password: ''
 })
+
 const login = async () => {
   await formRef.value.validate()
   const res = await reqLogin(formdata.value)
 
   if (res.code === 200) {
     userstore.token = res.data.token
-    ElMessage({
-      message: '登陆成功',
-      type: 'success'
+    ElNotification({
+      title: `Hi,${gettime()}`,
+      message: '欢迎回来',
+      type: 'success',
+      duration: 3000
     })
     router.push('/')
   } else {
