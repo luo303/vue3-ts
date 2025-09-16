@@ -5,8 +5,12 @@ export const useUserStore = defineStore(
   'user',
   () => {
     const token = ref('')
+    const removetoken = () => {
+      localStorage.removeItem('token')
+    }
     return {
-      token
+      token,
+      removetoken
     }
   },
   {
