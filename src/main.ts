@@ -1,5 +1,4 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import 'virtual:svg-icons-register'
@@ -8,12 +7,13 @@ import '@/styles/index.scss'
 
 import App from '@/App.vue'
 import router from './router'
+import store from './stores'
 
 const app = createApp(App)
 
 app.use(gloablComponent)
 app.use(ElementPlus)
-app.use(createPinia())
 app.use(router)
+app.use(store)
 
 app.mount('#app')

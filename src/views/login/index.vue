@@ -20,7 +20,9 @@
               class="el_input"
               v-model="formdata.password"
             ></el-input>
-            <el-button type="primary" class="button">登录</el-button>
+            <el-button type="primary" class="button" @click="login"
+              >登录</el-button
+            >
           </div>
         </el-form>
       </el-col>
@@ -30,10 +32,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Lock, User } from '@element-plus/icons-vue'
+import { reqLogin } from '@/api/user'
 const formdata = ref({
   username: '',
   password: ''
 })
+const login = async () => {
+  const res = await reqLogin(formdata.value)
+  console.log(res)
+}
 </script>
 
 <style scoped lang="scss">
