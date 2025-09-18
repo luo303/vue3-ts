@@ -4,6 +4,7 @@
     background-color="#001529"
     router
     :default-active="$route.path"
+    :collapse="settingStore.isCollapse"
   >
     <el-menu-item index="/home"
       ><el-icon color="white"><HomeFilled /></el-icon>首页</el-menu-item
@@ -45,6 +46,9 @@
   </el-menu>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import settingstore from '@/stores/modules/setting'
+const settingStore = settingstore()
+</script>
 
 <style scoped></style>

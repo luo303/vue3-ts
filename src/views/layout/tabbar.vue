@@ -1,7 +1,10 @@
 <template>
   <div class="tabbar">
     <div class="tabbar_left">
-      <Expand :icon="fold ? 'Expand' : 'Fold'" @click="change"></Expand>
+      <Expand
+        :icon="settingStore.fold ? 'Expand' : 'Fold'"
+        @click="change"
+      ></Expand>
       <!-- 面包屑 -->
       <el-breadcrumb :separator-icon="ArrowRight" class="bread">
         <el-breadcrumb-item :to="{ path: '/' }"
@@ -42,10 +45,11 @@ import {
   Refresh,
   Setting
 } from '@element-plus/icons-vue'
-import { ref } from 'vue'
-const fold = ref(false)
+import settingstore from '@/stores/modules/setting'
+const settingStore = settingstore()
 const change = () => {
-  fold.value = !fold.value
+  settingStore.fold = !settingStore.fold
+  settingStore.isCollapse = !settingStore.isCollapse
 }
 </script>
 

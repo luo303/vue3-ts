@@ -1,16 +1,18 @@
 <template>
   <div class="logo">
     <img src="/logo.png" alt="" />
-    <p>硅谷甄选后台</p>
+    <p v-show="!settingStore.fold">硅谷甄选后台</p>
   </div>
 </template>
 
-<script setup lang="ts"></script>
-
+<script setup lang="ts">
+import settingstore from '@/stores/modules/setting'
+const settingStore = settingstore()
+</script>
 <style scoped lang="scss">
 .logo {
   display: flex;
-  padding: 20px;
+  padding: 5px;
   width: 100%;
   height: $logo_height;
   align-items: center;
