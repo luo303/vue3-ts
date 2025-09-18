@@ -3,7 +3,7 @@
     text-color="white"
     background-color="#001529"
     router
-    default-active="/home"
+    :default-active="$route.path"
   >
     <el-menu-item index="/home"
       ><el-icon color="white"><HomeFilled /></el-icon>首页</el-menu-item

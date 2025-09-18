@@ -10,7 +10,9 @@
       </el-scrollbar>
     </div>
     <!-- 顶部导航栏 -->
-    <div class="nav_top">顶部导航栏</div>
+    <div class="nav_top">
+      <tabbar></tabbar>
+    </div>
     <!-- 中间内容区域 -->
     <div class="content"><router-view></router-view></div>
   </div>
@@ -19,6 +21,7 @@
 <script setup lang="ts">
 import logo from './logo.vue'
 import Menu from '@/components/menu.vue'
+import tabbar from './tabbar.vue'
 </script>
 <style scoped lang="scss">
 .layout_content {
@@ -36,7 +39,6 @@ import Menu from '@/components/menu.vue'
     top: 0;
     width: calc(100% - $base_nav_left);
     height: $base_nav_top;
-    background-color: aqua;
   }
   .content {
     position: absolute;

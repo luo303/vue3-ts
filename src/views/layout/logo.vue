@@ -1,6 +1,6 @@
 <template>
   <div class="logo">
-    <img src="/public//logo.png" alt="" />
+    <img src="/logo.png" alt="" />
     <p>硅谷甄选后台</p>
   </div>
 </template>
