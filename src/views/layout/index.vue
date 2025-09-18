@@ -6,20 +6,19 @@
       <logo></logo>
       <!-- 导航栏部分 -->
       <el-scrollbar class="scrollbar">
-        <p v-for="item in 100" :key="item" class="scrollbar-demo-item">
-          {{ item }}
-        </p>
+        <Menu></Menu>
       </el-scrollbar>
     </div>
     <!-- 顶部导航栏 -->
     <div class="nav_top">顶部导航栏</div>
     <!-- 中间内容区域 -->
-    <div class="content">内容区域</div>
+    <div class="content"><router-view></router-view></div>
   </div>
 </template>
 
 <script setup lang="ts">
 import logo from './logo.vue'
+import Menu from '@/components/menu.vue'
 </script>
 <style scoped lang="scss">
 .layout_content {
@@ -29,7 +28,7 @@ import logo from './logo.vue'
   .nav_left {
     width: $base_nav_left;
     height: 100vh;
-    background-color: bisque;
+    background-color: #001529;
   }
   .nav_top {
     position: absolute;
