@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { useUserStore } from '@/stores'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -13,7 +14,7 @@ const router = createRouter({
       path: '/',
       component: () => import('@/views/layout/index.vue'),
       name: 'layout',
-      redirect: '/home',
+      redirect: '/home?title1=首页',
       children: [
         {
           path: 'home',
@@ -87,5 +88,10 @@ const router = createRouter({
     }
   ]
 })
-
+//添加路由前置守卫
+router.beforeEach((to, from, next) => {
+  const userstore = useUserStore()
+  if (!userstore.token && to.path !== '/login') next('/login')
+  else next()
+})
 export default router

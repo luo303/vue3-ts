@@ -7,11 +7,15 @@
       ></Expand>
       <!-- 面包屑 -->
       <el-breadcrumb :separator-icon="ArrowRight" class="bread">
-        <el-breadcrumb-item :to="{ path: '/' }"
-          ><el-icon><Lock /></el-icon>权限管理</el-breadcrumb-item
+        <el-breadcrumb-item :to="{ path: `${$route.fullPath}` }"
+          ><el-icon
+            ><Lock v-if="title.title1 === '权限管理'" /><ShoppingCartFull
+              v-else-if="title.title1 === '商品管理'" />
+            <HomeFilled v-else /></el-icon
+          >{{ title.title1 }}</el-breadcrumb-item
         >
-        <el-breadcrumb-item
-          ><el-icon><Avatar /></el-icon>用户管理</el-breadcrumb-item
+        <el-breadcrumb-item v-if="title.title2"
+          ><el-icon><Avatar /></el-icon>{{ title.title2 }}</el-breadcrumb-item
         >
       </el-breadcrumb>
     </div>
@@ -42,11 +46,26 @@ import Expand from '@/components/expand.vue'
 import {
   ArrowRight,
   FullScreen,
+  HomeFilled,
   Refresh,
   Setting
 } from '@element-plus/icons-vue'
 import settingstore from '@/stores/modules/setting'
+import { useRoute } from 'vue-router'
+import { watch } from 'vue'
+import { ref } from 'vue'
 const settingStore = settingstore()
+const route = useRoute()
+const title = ref(route.query)
+// 使用watch监听路由的query变化
+watch(
+  // 监听的目标：路由的query对象
+  () => route.query,
+  newQuery => {
+    title.value = newQuery
+  },
+  { deep: true }
+)
 const change = () => {
   settingStore.fold = !settingStore.fold
   settingStore.isCollapse = !settingStore.isCollapse
@@ -70,6 +89,7 @@ const change = () => {
   .tabbar_right {
     display: flex;
     align-items: center;
+    margin-right: 20px;
     .avator {
       margin-left: 10px;
     }
