@@ -76,7 +76,7 @@ const login = async () => {
       title: `Hi,${gettime()}`,
       message: '欢迎回来',
       type: 'success',
-      duration: 3000
+      duration: 1500
     })
     router.push('/')
   } else {

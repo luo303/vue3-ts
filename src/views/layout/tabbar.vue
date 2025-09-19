@@ -33,7 +33,7 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>退出登录</el-dropdown-item>
+            <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -51,11 +51,15 @@ import {
   Setting
 } from '@element-plus/icons-vue'
 import settingstore from '@/stores/modules/setting'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { useUserStore } from '@/stores'
 import { watch } from 'vue'
 import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
 const settingStore = settingstore()
+const userstore = useUserStore()
 const route = useRoute()
+const router = useRouter()
 const title = ref(route.query)
 // 使用watch监听路由的query变化
 watch(
@@ -69,6 +73,14 @@ watch(
 const change = () => {
   settingStore.fold = !settingStore.fold
   settingStore.isCollapse = !settingStore.isCollapse
+}
+const logout = () => {
+  userstore.removetoken()
+  router.push('/login')
+  ElMessage({
+    message: '退出成功',
+    type: 'success'
+  })
 }
 </script>
 
