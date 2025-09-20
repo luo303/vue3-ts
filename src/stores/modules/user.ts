@@ -6,16 +6,27 @@ export const useUserStore = defineStore(
   () => {
     const token = ref('')
     const removetoken = () => {
-      localStorage.removeItem('token')
+      token.value = ''
+    }
+    const username = ref('')
+    const avatar = ref('')
+    const clearAll = () => {
+      // 重置为初始状态
+      token.value = ''
+      username.value = ''
+      avatar.value = ''
     }
     return {
       token,
-      removetoken
+      removetoken,
+      username,
+      avatar,
+      clearAll
     }
   },
   {
     persist: {
-      key: 'token'
+      key: 'zxuserinfo'
     }
   }
 )

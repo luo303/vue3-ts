@@ -19,12 +19,12 @@
     </div>
     <div class="tabbar_right">
       <el-button :icon="Refresh" circle @click="refresh" />
-      <el-button :icon="FullScreen" circle />
+      <el-button :icon="FullScreen" circle @click="fullscreen" />
       <el-button :icon="Setting" circle />
-      <el-avatar :size="32" src="/logo.png" class="avator" />
+      <el-avatar :size="32" :src="userstore.avatar" class="avator" />
       <el-dropdown>
         <span class="el-dropdown-link">
-          admin
+          {{ userstore.username }}
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
@@ -63,8 +63,16 @@ const change = () => {
 const refresh = () => {
   settingStore.refrsh = !settingStore.refrsh
 }
+const fullscreen = () => {
+  const full = document.fullscreenElement
+  if (!full) {
+    document.documentElement.requestFullscreen()
+  } else {
+    document.exitFullscreen()
+  }
+}
 const logout = () => {
-  userstore.removetoken()
+  userstore.clearAll()
   router.push('/login')
   ElMessage({
     message: '退出成功',
