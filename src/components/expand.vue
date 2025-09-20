@@ -1,5 +1,7 @@
 <template>
-  <el-icon><component :is="icon" /></el-icon>
+  <div class="expand">
+    <el-icon><component :is="icon" /></el-icon>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -10,4 +12,8 @@ defineProps({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.expand {
+  cursor: pointer;
+}
+</style>
