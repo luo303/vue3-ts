@@ -15,7 +15,7 @@
     </div>
     <!-- 中间内容区域 -->
     <div class="content" :class="{ fold: settingStore.fold ? true : false }">
-      <router-view></router-view>
+      <Main></Main>
     </div>
   </div>
 </template>
@@ -24,6 +24,7 @@
 import logo from './logo.vue'
 import Menu from '@/components/menu.vue'
 import tabbar from './tabbar.vue'
+import Main from './main.vue'
 import settingstore from '@/stores/modules/setting'
 const settingStore = settingstore()
 </script>

@@ -16,10 +16,9 @@
           >{{ item.meta.title }}</el-breadcrumb-item
         >
       </el-breadcrumb>
-      <button @click="a">显示</button>
     </div>
     <div class="tabbar_right">
-      <el-button :icon="Refresh" circle />
+      <el-button :icon="Refresh" circle @click="refresh" />
       <el-button :icon="FullScreen" circle />
       <el-button :icon="Setting" circle />
       <el-avatar :size="32" src="/logo.png" class="avator" />
@@ -45,24 +44,24 @@ import Expand from '@/components/expand.vue'
 import {
   ArrowRight,
   FullScreen,
-  Refresh,
-  Setting
+  Setting,
+  Refresh
 } from '@element-plus/icons-vue'
 import settingstore from '@/stores/modules/setting'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores'
 import { ElMessage } from 'element-plus'
 const settingStore = settingstore()
 const userstore = useUserStore()
-const route = useRoute()
+
 const router = useRouter()
-const a = () => {
-  console.log(route.matched)
-}
 
 const change = () => {
   settingStore.fold = !settingStore.fold
   settingStore.isCollapse = !settingStore.isCollapse
+}
+const refresh = () => {
+  settingStore.refrsh = !settingStore.refrsh
 }
 const logout = () => {
   userstore.removetoken()

@@ -5,10 +5,11 @@ import { ref } from 'vue'
 const settingstore = defineStore('setting', () => {
   const fold = ref(false)
   const isCollapse = ref(false)
-
+  const refrsh = ref(false)
   return {
     fold,
-    isCollapse
+    isCollapse,
+    refrsh
   }
 })
 export default settingstore
