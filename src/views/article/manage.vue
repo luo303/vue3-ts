@@ -1,5 +1,5 @@
 <template>
-  <div>我是spu</div>
+  <div></div>
 </template>
 
 <script setup lang="ts"></script>

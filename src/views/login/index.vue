@@ -69,13 +69,16 @@ const formdata = ref({
 const login = async () => {
   await formRef.value.validate()
   const res = await reqLogin(formdata.value)
+  console.log(res)
 
-  if (res.code === 200) {
-    userstore.token = res.data.token
+  if (res.code === 0) {
+    userstore.token = res.token
     const result = await reqUserInfo()
-    if (result.code === 200) {
-      userstore.username = result.data.checkUser.username
-      userstore.avatar = result.data.checkUser.avatar
+    console.log(result)
+
+    if (result.code === 0) {
+      userstore.username = result.data.username
+      userstore.avatar = result.data.user_pic
     } else {
       ElMessage({
         message: '获取用户信息失败',
@@ -91,7 +94,7 @@ const login = async () => {
     router.push('/')
   } else {
     ElMessage({
-      message: res.data?.message || '登陆失败',
+      message: res.message || '登陆失败',
       type: 'error'
     })
   }

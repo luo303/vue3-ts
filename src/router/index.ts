@@ -9,7 +9,6 @@ const router = createRouter({
       component: () => import('@/views/login/index.vue'),
       name: 'login'
     },
-
     {
       path: '/',
       component: () => import('@/views/layout/index.vue'),
@@ -19,97 +18,59 @@ const router = createRouter({
         icon: 'Lock',
         hidden: true
       },
-      redirect: '/home',
+      redirect: '/channel',
       children: [
         {
-          path: 'home',
-          component: () => import('@/views/home/index.vue'),
-          name: 'home',
+          path: 'manage',
+          component: () => import('@/views/article/manage.vue'),
+          name: 'manage',
           meta: {
-            title: '首页',
-            icon: 'HomeFilled'
+            title: '文章管理',
+            icon: 'Promotion'
           }
         },
         {
-          path: 'acl',
-          redirect: '/acl/user',
-          name: 'acl',
+          path: 'channel',
+          component: () => import('@/views/article/channel.vue'),
+          name: 'channel',
           meta: {
-            title: '权限管理',
-            icon: 'Lock'
-          },
-          children: [
-            {
-              path: 'user',
-              component: () => import('@/views/acl/User.vue'),
-              name: 'user',
-              meta: {
-                title: '用户管理',
-                icon: 'Avatar'
-              }
-            },
-            {
-              path: 'player',
-              component: () => import('@/views/acl/player.vue'),
-              name: 'player',
-              meta: {
-                title: '角色管理',
-                icon: 'UserFilled'
-              }
-            },
-            {
-              path: 'menu',
-              component: () => import('@/views/acl/menu.vue'),
-              name: 'menu',
-              meta: {
-                title: '菜单管理',
-                icon: 'Menu'
-              }
-            }
-          ]
+            title: '文章分类',
+            icon: 'Menu'
+          }
         },
         {
-          path: 'shopping',
-          name: 'shopping',
-          redirect: '/shopping/brand',
+          path: 'user',
+          redirect: '/user/profile',
+          name: 'article',
           meta: {
-            title: '商品管理',
-            icon: 'ShoppingCartFull'
+            title: '个人中心',
+            icon: 'Avatar'
           },
           children: [
             {
-              path: 'attr',
-              name: 'attr',
-              component: () => import('@/views/shopping/attr.vue'),
+              path: 'profile',
+              component: () => import('@/views/user/profile.vue'),
+              name: 'profile',
               meta: {
-                title: '属性管理',
+                title: '基本资料',
+                icon: 'List'
+              }
+            },
+            {
+              path: 'avatar',
+              component: () => import('@/views/user/avatar.vue'),
+              name: 'avatar',
+              meta: {
+                title: '更换头像',
                 icon: 'MagicStick'
               }
             },
             {
-              path: 'brand',
-              name: 'brand',
-              component: () => import('@/views/shopping/brand.vue'),
+              path: 'password',
+              component: () => import('@/views/user/password.vue'),
+              name: 'password',
               meta: {
-                title: '品牌管理',
-                icon: 'GoodsFilled'
-              }
-            },
-            {
-              path: 'SKU',
-              name: 'SKU',
-              component: () => import('@/views/shopping/sku.vue'),
-              meta: {
-                title: 'SKU管理',
-                icon: 'Flag'
-              }
-            },
-            {
-              path: 'SPU',
-              name: 'SPU',
-              component: () => import('@/views/shopping/spu.vue'),
-              meta: {
-                title: 'SPU管理',
+                title: '更改密码',
                 icon: 'Opportunity'
               }
             }

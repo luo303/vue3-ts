@@ -1,5 +1,5 @@
 <template>
-  <div>我是角色</div>
+  <div></div>
 </template>
 
 <script setup lang="ts"></script>

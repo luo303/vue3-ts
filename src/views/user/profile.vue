@@ -1,5 +1,5 @@
 <template>
-  <div>我是菜单</div>
+  <div></div>
 </template>
 
 <script setup lang="ts"></script>

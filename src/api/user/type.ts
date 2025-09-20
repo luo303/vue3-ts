@@ -3,32 +3,22 @@ export interface loginFormData {
   password: string
 }
 
-interface dataType {
+export interface loginResponseData {
+  code: number
   token: string
   message?: string
 }
 
-export interface loginResponseData {
-  code: number
-  data: dataType
-}
-
-interface userinfo {
-  userId: number
-  avatar: string
-  username: string
-  password: string
-  desc: string
-  roles: string[]
-  buttons: string[]
-  routes: string[]
-  token: string
-}
-
 interface user {
-  checkUser: userinfo
+  id: number
+  email: string
+  nickname: string
+  username: string
+  user_pic: string
 }
+
 export interface userResponseData {
   code: number
   data: user
+  message: string
 }
