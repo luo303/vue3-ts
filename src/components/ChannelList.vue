@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <el-select
-      :modelValue="modelValue"
-      placeholder="请点击选择"
-      @update:modelValue="emit('update:modelValue', $event)"
-      clearable
-    >
-      <el-option
-        v-for="item in catogory"
-        :key="item.id"
-        :label="item.cate_name"
-        :value="item.id"
-      />
-    </el-select>
-  </div>
+  <el-select
+    :modelValue="modelValue"
+    placeholder="请点击选择"
+    @update:modelValue="emit('update:modelValue', $event)"
+    :style="{ width }"
+  >
+    <el-option
+      v-for="item in catogory"
+      :key="item.id"
+      :label="item.cate_name"
+      :value="item.id"
+    />
+  </el-select>
 </template>
 
 <script setup lang="ts">
@@ -23,6 +21,9 @@ import { getchannel } from '@/api/user'
 defineProps({
   modelValue: {
     type: [String, Number]
+  },
+  width: {
+    type: String
   }
 })
 const emit = defineEmits(['update:modelValue'])
@@ -35,8 +36,4 @@ const GetChannelList = async () => {
 GetChannelList()
 </script>
 
-<style scoped lang="scss">
-.el-form-item__content .el-select {
-  --el-select-width: 220px;
-}
-</style>
+<style scoped lang="scss"></style>

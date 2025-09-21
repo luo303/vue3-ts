@@ -4,7 +4,7 @@
       <template #header>
         <div class="header">
           <span>文章管理</span>
-          <el-button type="primary">发布文章</el-button>
+          <el-button type="primary" @click="addArticle">发布文章</el-button>
         </div>
       </template>
       <el-form :inline="true" class="demo-form-inline">
@@ -35,7 +35,7 @@
         <el-table-column fixed="right" label="操作">
           <template #default="{ row }">
             <el-button type="danger" @click="del(row.id)"> 删除 </el-button>
-            <el-button type="primary">编辑</el-button>
+            <el-button type="primary" @click="editArticle">编辑</el-button>
           </template>
         </el-table-column>
         <template #empty>
@@ -43,7 +43,7 @@
         </template>
       </el-table>
     </el-card>
-    <ArticleEdit></ArticleEdit>
+    <ArticleEdit ref="article"></ArticleEdit>
   </div>
 </template>
 
@@ -96,6 +96,16 @@ const del = async (id: string) => {
   })
   search()
 }
+const article = ref()
+//发布文章按钮
+const addArticle = () => {
+  article.value.open()
+}
+//编辑按钮
+const editArticle = () => {
+  article.value.open()
+}
+//后期要删掉的
 const a = () => {
   console.log(params.value)
 }
