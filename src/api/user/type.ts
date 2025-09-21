@@ -22,3 +22,8 @@ export interface userResponseData {
   data: user
   message: string
 }
+
+export interface addchannelData {
+  cate_name: string
+  cate_alias: string
+}

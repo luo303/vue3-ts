@@ -59,12 +59,13 @@ const settingStore = settingstore()
   }
   .content {
     position: absolute;
+    padding: 30px;
     top: $base_nav_top;
     left: $base_nav_left;
-    background-color: blueviolet;
     width: calc(100% - $base_nav_left);
     height: calc(100vh - $base_nav_top);
     transition: all ease 0.5s;
+    background-color: #6666662a;
     &.fold {
       left: $base_nav_min_left;
       width: calc(100% - $base_nav_min_left);

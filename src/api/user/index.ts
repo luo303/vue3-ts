@@ -3,13 +3,22 @@ import request from '@/utils/request'
 import type {
   loginFormData,
   loginResponseData,
-  userResponseData
+  userResponseData,
+  addchannelData
 } from '@/api/user/type'
 //项目用户相关的请求地址
 enum API {
   LOGIN_URL = '/api/login',
 
   USERINFO_URL = '/my/userinfo',
+
+  CHANNEL_URL = '/my/cate/list',
+
+  ADD_CHANNEL_URL = '/my/cate/add',
+
+  DEL_CHANNEL_URL = '/my/cate/del',
+
+  EDIT_CHANNEL_URL = '/my/cate/info',
 
   LOGOUT_URL = '/user/logout'
 }
@@ -19,5 +28,20 @@ export const reqLogin = (data: loginFormData) =>
 //获取用户信息
 export const reqUserInfo = () =>
   request.get<any, userResponseData>(API.USERINFO_URL)
+//获取文章分类
+export const getchannel = () => request.get<any, any>(API.CHANNEL_URL)
+//增加文章分类
+export const addchannel = (data: addchannelData) =>
+  request.post<any, any>(API.ADD_CHANNEL_URL, data)
+//删除文章分类
+export const delchannel = (id: any) =>
+  request.delete<any, any>(API.DEL_CHANNEL_URL, {
+    params: {
+      id
+    }
+  })
+//更新文章分类
+export const eidtchannel = (data: any) =>
+  request.put<any, any>(API.EDIT_CHANNEL_URL, data)
 //退出登录
 export const reqLogout = () => request.post<any, any>(API.LOGOUT_URL)

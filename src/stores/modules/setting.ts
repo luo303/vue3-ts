@@ -6,10 +6,12 @@ const settingstore = defineStore('setting', () => {
   const fold = ref(false)
   const isCollapse = ref(false)
   const refrsh = ref(false)
+  const dialogFormVisible = ref(false)
   return {
     fold,
     isCollapse,
-    refrsh
+    refrsh,
+    dialogFormVisible
   }
 })
 export default settingstore

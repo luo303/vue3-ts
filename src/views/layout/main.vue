@@ -12,7 +12,7 @@
 import { ref, watch, nextTick } from 'vue'
 import settingstore from '@/stores/modules/setting'
 const settingStore = settingstore()
-//当前组件是否销毁
+//当前组件是否没销毁
 const flag = ref(true)
 watch(
   () => settingStore.refrsh,
