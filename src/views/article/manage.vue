@@ -9,18 +9,7 @@
       </template>
       <el-form :inline="true" class="demo-form-inline">
         <el-form-item label="文章分类">
-          <el-select
-            v-model="params.cate_id"
-            placeholder="请点击选择"
-            clearable
-          >
-            <el-option
-              v-for="item in catogory"
-              :key="item.id"
-              :label="item.cate_name"
-              :value="item.id"
-            />
-          </el-select>
+          <ChannelList v-model="params.cate_id"></ChannelList>
           <button @click="a">点击</button>
         </el-form-item>
         <el-form-item label="发布状态">
@@ -54,22 +43,21 @@
         </template>
       </el-table>
     </el-card>
+    <ArticleEdit></ArticleEdit>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { onMounted } from 'vue'
-import { getchannel } from '@/api/user'
-import type { catogory } from './type'
+
 import { GetArticleList, DelArticle } from '@/api/user'
 import { formatTime } from '@/utils/formate'
 import { ElMessageBox, ElMessage } from 'element-plus'
-const catogory = ref<catogory[]>([])
+import ArticleEdit from '@/components/ArticleEdit.vue'
+import ChannelList from '@/components/ChannelList.vue'
+
 onMounted(async () => {
-  const res1 = await getchannel()
-  catogory.value = res1.data
-  console.log(catogory.value)
   search()
   console.log(articlelist.value)
 })

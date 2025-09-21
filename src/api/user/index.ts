@@ -20,9 +20,11 @@ enum API {
 
   EDIT_CHANNEL_URL = '/my/cate/info',
 
-  GET_ARTICLE_URL = '/my/article/list',
+  GET_ARTICLE_LIST_URL = '/my/article/list',
 
   DEL_ARTICLE_URL = '/my/article/info',
+
+  ADD_ARTICLE_URL = '/my/article/add',
 
   LOGOUT_URL = '/user/logout'
 }
@@ -49,7 +51,7 @@ export const eidtchannel = (data: any) =>
   request.put<any, any>(API.EDIT_CHANNEL_URL, data)
 //获取文章列表
 export const GetArticleList = (params: any) =>
-  request.get<any, any>(API.GET_ARTICLE_URL, {
+  request.get<any, any>(API.GET_ARTICLE_LIST_URL, {
     params
   })
 //删除文章
@@ -59,5 +61,7 @@ export const DelArticle = (id: any) =>
       id: id
     }
   })
+//发布文章
+export const AddArticle = (data: any) => request.post(API.ADD_ARTICLE_URL, data)
 //退出登录
 export const reqLogout = () => request.post<any, any>(API.LOGOUT_URL)
