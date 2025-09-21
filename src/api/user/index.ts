@@ -20,6 +20,10 @@ enum API {
 
   EDIT_CHANNEL_URL = '/my/cate/info',
 
+  GET_ARTICLE_URL = '/my/article/list',
+
+  DEL_ARTICLE_URL = '/my/article/info',
+
   LOGOUT_URL = '/user/logout'
 }
 //登录接口
@@ -43,5 +47,17 @@ export const delchannel = (id: any) =>
 //更新文章分类
 export const eidtchannel = (data: any) =>
   request.put<any, any>(API.EDIT_CHANNEL_URL, data)
+//获取文章列表
+export const GetArticleList = (params: any) =>
+  request.get<any, any>(API.GET_ARTICLE_URL, {
+    params
+  })
+//删除文章
+export const DelArticle = (id: any) =>
+  request.delete(API.DEL_ARTICLE_URL, {
+    params: {
+      id: id
+    }
+  })
 //退出登录
 export const reqLogout = () => request.post<any, any>(API.LOGOUT_URL)
