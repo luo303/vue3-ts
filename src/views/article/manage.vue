@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <el-card class="card">
+  <div>
+    <el-card class="container">
       <template #header>
         <div class="header">
           <span>文章管理</span>
@@ -10,7 +10,6 @@
       <el-form :inline="true" class="demo-form-inline">
         <el-form-item label="文章分类">
           <ChannelList v-model="params.cate_id"></ChannelList>
-          <button @click="a">点击</button>
         </el-form-item>
         <el-form-item label="发布状态">
           <el-select v-model="params.state" placeholder="请点击选择" clearable>
@@ -35,15 +34,26 @@
         <el-table-column fixed="right" label="操作">
           <template #default="{ row }">
             <el-button type="danger" @click="del(row.id)"> 删除 </el-button>
-            <el-button type="primary" @click="editArticle">编辑</el-button>
+            <el-button type="primary" @click="editArticle(row)">编辑</el-button>
           </template>
         </el-table-column>
         <template #empty>
           <el-empty description="没有数据" />
         </template>
       </el-table>
+      <el-pagination
+        background
+        layout=" sizes,jumper, prev, pager, next,total"
+        :total="total"
+        v-model:current-page="params.pagenum"
+        v-model:page-size="params.pagesize"
+        :page-sizes="[2, 3, 4, 5, 10]"
+        style="margin-top: 20px; justify-content: flex-end"
+        @size-change="onSizeChange"
+        @current-change="onCurrentChange"
+      />
     </el-card>
-    <ArticleEdit ref="article"></ArticleEdit>
+    <ArticleEdit ref="article" @success="search"></ArticleEdit>
   </div>
 </template>
 
@@ -59,11 +69,11 @@ import ChannelList from '@/components/ChannelList.vue'
 
 onMounted(async () => {
   search()
-  console.log(articlelist.value)
 })
+const total = ref(7)
 const params = ref({
   pagenum: 1,
-  pagesize: '5',
+  pagesize: 5,
   cate_id: '',
   state: ''
 })
@@ -72,12 +82,12 @@ const articlelist = ref([])
 const search = async () => {
   const res = await GetArticleList(params.value)
   articlelist.value = res.data
-  console.log(articlelist.value)
+  total.value = res.total
 }
 //重置按钮
 const reset = () => {
   params.value.pagenum = 1
-  params.value.pagesize = '5'
+  params.value.pagesize = 5
   params.value.cate_id = ''
   params.value.state = ''
   search()
@@ -99,30 +109,32 @@ const del = async (id: string) => {
 const article = ref()
 //发布文章按钮
 const addArticle = () => {
-  article.value.open()
+  article.value.open({})
 }
 //编辑按钮
-const editArticle = () => {
-  article.value.open()
+const editArticle = (row: any) => {
+  article.value.open(row)
 }
-//后期要删掉的
-const a = () => {
-  console.log(params.value)
+const onSizeChange = async (size: number) => {
+  params.value.pagenum = 1
+  params.value.pagesize = size
+  search()
+}
+const onCurrentChange = async (page: number) => {
+  params.value.pagenum = page
+  search()
 }
 </script>
 
 <style scoped lang="scss">
-.card {
-  width: 100%;
-  height: 100%;
+.container {
+  //思考一下：为啥这里用100%没用
+  min-height: calc(100vh - $base_nav_top - 60px);
+  overflow-y: auto;
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  .table {
-    display: flex;
-    width: 100%;
   }
 }
 .el-form-item__content .el-select {

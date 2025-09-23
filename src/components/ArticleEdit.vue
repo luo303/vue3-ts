@@ -2,7 +2,7 @@
   <div>
     <el-drawer
       v-model="visible"
-      title="I have a nested form inside!"
+      :title="(formdata as any).id ? '编辑文章' : '发布文章'"
       direction="rtl"
       size="50%"
     >
@@ -19,6 +19,7 @@
               class="avatar-uploader"
               :auto-upload="false"
               :show-file-list="false"
+              :on-change="onUploadFile"
             >
               <img v-if="imageUrl" :src="imageUrl" class="avatar" />
               <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
@@ -28,8 +29,10 @@
             <el-input v-model="formdata.content" type="textarea" :rows="5" />
           </el-form-item>
           <el-form-item>
-            <el-button>草稿</el-button>
-            <el-button type="primary" @click="submit"> 发布 </el-button>
+            <el-button @click="submit('草稿')">草稿</el-button>
+            <el-button type="primary" @click="submit('已发布')">
+              发布
+            </el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -38,10 +41,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { baseURL } from '@/utils/request'
+import { nextTick, ref } from 'vue'
 import ChannelList from './ChannelList.vue'
-
-const formdata = ref({
+import { GetArticleDetail, AddArticle } from '@/api/user'
+import { imageUrlToFile } from '@/utils/image'
+import type { formdata } from '@/views/article/type'
+import { ElMessage } from 'element-plus'
+const emit = defineEmits(['success'])
+const defaultform = {
+  title: '',
+  cate_id: '',
+  content: '',
+  cover_img: '',
+  state: ''
+}
+const formdata = ref<formdata>({
   title: '',
   cate_id: '',
   content: '',
@@ -49,12 +64,53 @@ const formdata = ref({
   state: ''
 })
 const imageUrl = ref('')
-const visible = ref(false)
-const submit = () => {
-  console.log(formdata.value)
+const onUploadFile = (uploadfile: any) => {
+  imageUrl.value = URL.createObjectURL(uploadfile.raw)
+  formdata.value.cover_img = uploadfile.raw
 }
-const open = () => {
+const visible = ref(false)
+const submit = async (state: string) => {
+  formdata.value.state = state
+  //转换成formdata类型
+  const fd = new FormData()
+  // for (const key in formdata.value) {
+  //   fd.append(key, formdata.value[key])
+  // }
+  Object.keys(formdata.value).forEach((key: string) => {
+    const value = formdata.value[key]
+    fd.append(key, value)
+  })
+  // fd.append('title', formdata.value.title)
+  // fd.append('cate_id', formdata.value.cate_id)
+  // fd.append('content', formdata.value.content)
+  // fd.append('cover_img', formdata.value.cover_img)
+  // fd.append('state', formdata.value.state)
+  const res = (await AddArticle(fd)) as any
+  if (res.code === 0) {
+    ElMessage.success('发布成功')
+    visible.value = false
+    emit('success')
+  }
+}
+const open = async (row: any) => {
   visible.value = true
+
+  await nextTick()
+  if (row.id) {
+    const res = await GetArticleDetail(row.id)
+    if ((res as any).code === 0) {
+      formdata.value = res.data
+      imageUrl.value = baseURL + formdata.value.cover_img
+      formdata.value.cover_img = (await imageUrlToFile(
+        imageUrl.value,
+        formdata.value.cover_img
+      )) as unknown as string
+      console.log(formdata.value)
+    }
+  } else {
+    formdata.value = { ...defaultform }
+    imageUrl.value = ''
+  }
 }
 defineExpose({
   open

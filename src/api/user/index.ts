@@ -22,7 +22,7 @@ enum API {
 
   GET_ARTICLE_LIST_URL = '/my/article/list',
 
-  DEL_ARTICLE_URL = '/my/article/info',
+  ARTICLE_INFO_URL = '/my/article/info',
 
   ADD_ARTICLE_URL = '/my/article/add',
 
@@ -56,12 +56,22 @@ export const GetArticleList = (params: any) =>
   })
 //删除文章
 export const DelArticle = (id: any) =>
-  request.delete(API.DEL_ARTICLE_URL, {
+  request.delete(API.ARTICLE_INFO_URL, {
     params: {
       id: id
     }
   })
+//获取文章详情
+export const GetArticleDetail = (id: string) =>
+  request.get(API.ARTICLE_INFO_URL, {
+    params: {
+      id
+    }
+  })
 //发布文章
 export const AddArticle = (data: any) => request.post(API.ADD_ARTICLE_URL, data)
+//更新文章
+export const ModifyArticle = (data: any) =>
+  request.put(API.ARTICLE_INFO_URL, data)
 //退出登录
 export const reqLogout = () => request.post<any, any>(API.LOGOUT_URL)

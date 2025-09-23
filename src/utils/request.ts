@@ -3,8 +3,9 @@ import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/stores'
 import router from '@/router'
 //创建axios实例
+const baseURL = import.meta.env.VITE_APP_BASE_API
 const request = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_API,
+  baseURL,
   timeout: 5000
 })
 //请求拦截器
@@ -49,3 +50,4 @@ request.interceptors.response.use(
   }
 )
 export default request
+export { baseURL }

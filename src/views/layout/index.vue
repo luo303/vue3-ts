@@ -58,6 +58,7 @@ const settingStore = settingstore()
     }
   }
   .content {
+    overflow-y: auto;
     position: absolute;
     padding: 30px;
     top: $base_nav_top;
