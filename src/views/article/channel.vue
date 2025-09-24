@@ -7,7 +7,12 @@
           <el-button type="primary" @click="add">添加分类</el-button>
         </div>
       </template>
-      <el-table :data="tableData" class="table">
+      <el-table
+        :data="tableData"
+        class="table"
+        v-loading="loading"
+        style="width: 100%"
+      >
         <el-table-column prop="id" label="序号" />
         <el-table-column prop="cate_name" label="分类名称" />
         <el-table-column prop="cate_alias" label="分类别名" />
@@ -34,14 +39,17 @@ import ChannelEdit from '@/components/ChannelEdit.vue'
 import settingstore from '@/stores/modules/setting'
 import { ElMessage, ElMessageBox } from 'element-plus'
 const dialog = ref()
+const loading = ref(true)
 const settingStore = settingstore()
 const tableData = ref([])
 onMounted(() => {
   getchannellist()
 })
 const getchannellist = async () => {
+  loading.value = true
   const res = await getchannel()
   if (res.code === 0) {
+    loading.value = false
     tableData.value = res.data
   }
 }
@@ -55,7 +63,9 @@ const Delchannel = async (row: any) => {
     confirmButtonText: '确认',
     cancelButtonText: '取消'
   })
+  loading.value = true
   const res = await delchannel(row.id)
+  loading.value = false
   if (res.code === 0) {
     ElMessage({
       message: `${res.message}`,

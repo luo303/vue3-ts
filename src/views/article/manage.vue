@@ -22,7 +22,7 @@
           <el-button type="primary" @click="reset">重置</el-button>
         </el-form-item>
       </el-form>
-      <el-table :data="articlelist" class="table">
+      <el-table :data="articlelist" class="table" v-loading="loading">
         <el-table-column prop="id" label="序号" />
         <el-table-column prop="title" label="分类名称" />
         <el-table-column prop="pub_date" label="发表时间">
@@ -70,6 +70,7 @@ import ChannelList from '@/components/ChannelList.vue'
 onMounted(async () => {
   search()
 })
+const loading = ref(true)
 const total = ref(7)
 const params = ref({
   pagenum: 1,
@@ -80,9 +81,11 @@ const params = ref({
 const articlelist = ref([])
 //搜索按钮
 const search = async () => {
+  loading.value = true
   const res = await GetArticleList(params.value)
   articlelist.value = res.data
   total.value = res.total
+  loading.value = false
 }
 //重置按钮
 const reset = () => {
