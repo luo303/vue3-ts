@@ -44,7 +44,7 @@
 import { baseURL } from '@/utils/request'
 import { nextTick, ref } from 'vue'
 import ChannelList from './ChannelList.vue'
-import { GetArticleDetail, AddArticle } from '@/api/user'
+import { GetArticleDetail, AddArticle, ModifyArticle } from '@/api/user'
 import { imageUrlToFile } from '@/utils/image'
 import type { formdata } from '@/views/article/type'
 import { ElMessage } from 'element-plus'
@@ -85,11 +85,20 @@ const submit = async (state: string) => {
   // fd.append('content', formdata.value.content)
   // fd.append('cover_img', formdata.value.cover_img)
   // fd.append('state', formdata.value.state)
-  const res = (await AddArticle(fd)) as any
-  if (res.code === 0) {
-    ElMessage.success('发布成功')
-    visible.value = false
-    emit('success')
+  if (formdata.value.id) {
+    const res = (await ModifyArticle(fd)) as any
+    if (res.code === 0) {
+      ElMessage.success('修改成功')
+      visible.value = false
+      emit('success')
+    }
+  } else {
+    const res = (await AddArticle(fd)) as any
+    if (res.code === 0) {
+      ElMessage.success('发布成功')
+      visible.value = false
+      emit('success')
+    }
   }
 }
 const open = async (row: any) => {
