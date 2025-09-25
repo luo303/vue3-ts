@@ -26,7 +26,7 @@
             </el-upload>
           </el-form-item>
           <el-form-item label="文章内容">
-            <el-input v-model="formdata.content" type="textarea" :rows="5" />
+            <el-input v-model="formdata.content" type="textarea" :rows="6" />
           </el-form-item>
           <el-form-item>
             <el-button @click="submit('草稿')">草稿</el-button>

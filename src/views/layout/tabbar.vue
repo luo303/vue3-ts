@@ -100,7 +100,7 @@ const logout = () => {
     align-items: center;
     margin-right: 20px;
     .avator {
-      margin-left: 10px;
+      margin: 0 10px;
     }
   }
 }

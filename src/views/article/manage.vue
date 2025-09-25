@@ -47,7 +47,7 @@
         :total="total"
         v-model:current-page="params.pagenum"
         v-model:page-size="params.pagesize"
-        :page-sizes="[2, 3, 4, 5, 10]"
+        :page-sizes="[2, 5, 10, 15]"
         style="margin-top: 20px; justify-content: flex-end"
         @size-change="onSizeChange"
         @current-change="onCurrentChange"
