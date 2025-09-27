@@ -125,7 +125,8 @@ onMounted(() => {
       {
         name: '年龄在',
         type: 'pie',
-        radius: ['40%', '70%'],
+        radius: ['30%', '70%'],
+        center: ['40%', '50%'],
         avoidLabelOverlap: false,
         itemStyle: {
           borderRadius: 10,

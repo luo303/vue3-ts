@@ -1,7 +1,11 @@
 <template>
   <div class="center">
-    <div class="top" ref="map">顶部</div>
-    <div class="bottom">底部</div>
+    <div class="top" ref="map"></div>
+    <div class="bottom">
+      <p class="bottom-title">未来七天游客数量趋势图</p>
+      <p class="bottom-bg"></p>
+      <div class="echart" ref="line"></div>
+    </div>
   </div>
 </template>
 
@@ -10,6 +14,7 @@ import { ref, onMounted } from 'vue'
 import * as echarts from 'echarts'
 import chinaJSON from '@/utils/china.json'
 const map = ref()
+const line = ref()
 echarts.registerMap('china', chinaJSON as any)
 onMounted(() => {
   const mapchart = echarts.init(map.value)
@@ -110,6 +115,51 @@ onMounted(() => {
       }
     }
   })
+  const linechart = echarts.init(line.value)
+  linechart.setOption({
+    titel: {
+      text: '访问量'
+    },
+    xAxis: {
+      type: 'category',
+      boundaryGap: 'false',
+      splitLine: {
+        show: false
+      },
+      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+      axisLabel: {
+        color: 'white'
+      }
+    },
+    yAxis: {
+      splitLine: {
+        show: false
+      },
+      axisLine: {
+        show: true
+      },
+      axisTick: {
+        show: true
+      },
+      axisLabel: {
+        color: 'white'
+      }
+    },
+    grid: {
+      left: 40,
+      top: 0,
+      right: 0,
+      bottom: 40
+    },
+    series: {
+      type: 'line',
+      data: [240, 500, 250, 360, 600, 980, 280],
+      smooth: true,
+      areaStyle: {
+        color: 'rgba(100,255,255)'
+      }
+    }
+  })
 })
 </script>
 
@@ -124,6 +174,25 @@ onMounted(() => {
   }
   .bottom {
     flex: 3;
+    margin: 0 20px;
+    background: url(../assets/images/screen/dataScreen-main-cb.png) no-repeat;
+    background-size: cover;
+    .bottom-title {
+      color: white;
+      font-size: 20px;
+      margin: 10px 50px;
+    }
+    .bottom-bg {
+      width: 68px;
+      height: 7px;
+      background: url(../assets/images/screen/dataScreen-title.png) no-repeat;
+      margin-left: 50px;
+    }
+    .echart {
+      width: 100%;
+      height: 80%;
+      margin-top: 18px;
+    }
   }
 }
 </style>
