@@ -2,6 +2,11 @@ export interface loginFormData {
   username: string
   password: string
 }
+export interface registerFormData {
+  username: string
+  password: string
+  repassword: string
+}
 
 export interface loginResponseData {
   code: number

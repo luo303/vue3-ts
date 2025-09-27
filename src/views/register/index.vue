@@ -29,18 +29,27 @@
                 v-model="formdata.password"
               ></el-input>
             </el-form-item>
+            <el-form-item prop="repassword">
+              <el-input
+                type="password"
+                show-password
+                :prefix-icon="Lock"
+                class="el_input"
+                v-model="formdata.repassword"
+              ></el-input>
+            </el-form-item>
             <el-form-item>
-              <el-button type="primary" class="button" @click="login"
-                >登录</el-button
+              <el-button type="primary" class="button" @click="register"
+                >注册</el-button
               >
             </el-form-item>
             <el-form-item class="flex">
               <el-link
                 type="info"
                 :underline="false"
-                @click="$router.push('/register')"
+                @click="$router.push('/login')"
               >
-                没有账号？点击注册 →
+                ← 返回
               </el-link>
             </el-form-item>
           </div>
@@ -52,11 +61,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Lock, User } from '@element-plus/icons-vue'
-import { reqLogin, reqUserInfo } from '@/api/user'
+import { reqregister } from '@/api/user'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '@/stores'
-import { ElMessage, ElNotification } from 'element-plus'
-import { gettime } from '@/utils/time'
+import { ElMessage } from 'element-plus'
+
 const formRef = ref()
 const rules = ref({
   username: [
@@ -66,44 +74,38 @@ const rules = ref({
   password: [
     { required: true, message: '请输入密码', trigger: 'blur' },
     { min: 6, max: 10, message: '密码必须为6到10位', trigger: 'blur' }
+  ],
+  repassword: [
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    {
+      validator: (rule: any, value: any, cb: any) => {
+        if (value != formdata.value.password) {
+          cb('两次密码不一致')
+        } else {
+          cb()
+        }
+      },
+      trigger: 'blur'
+    }
   ]
 })
 const router = useRouter()
-const userstore = useUserStore()
 const formdata = ref({
   username: '',
-  password: ''
+  password: '',
+  repassword: ''
 })
 
-const login = async () => {
-  await formRef.value.validate()
-  const res = await reqLogin(formdata.value)
+const register = async () => {
+  const res = await reqregister(formdata.value)
   console.log(res)
 
-  if (res.code === 0) {
-    userstore.token = res.token
-    const result = await reqUserInfo()
-    console.log(result)
-
-    if (result.code === 0) {
-      userstore.username = result.data.username
-      userstore.avatar = result.data.user_pic
-    } else {
-      ElMessage({
-        message: '获取用户信息失败',
-        type: 'error'
-      })
-    }
-    ElNotification({
-      title: `Hi,${gettime()}`,
-      message: `${userstore.username}欢迎回来`,
-      type: 'success',
-      duration: 1500
-    })
-    router.push('/')
+  if ((res as any).code === 0) {
+    ElMessage.success('注册成功')
+    router.push('/login')
   } else {
     ElMessage({
-      message: res.message || '登陆失败',
+      message: (res as any).message || '注册失败',
       type: 'error'
     })
   }
@@ -127,7 +129,7 @@ const login = async () => {
   }
   .el_input {
     width: 80%;
-    margin: 12px 0;
+    margin: 5px 0;
   }
   .button {
     margin: 12px 0;
@@ -143,11 +145,6 @@ const login = async () => {
     top: 30vh;
     background: url('@/assets/images/login_form.png') no-repeat;
     background-size: cover;
-  }
-  .register {
-    a {
-      text-decoration: none;
-    }
   }
 }
 </style>

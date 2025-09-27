@@ -1,6 +1,7 @@
 import request from '@/utils/request'
 //调用interface接口
 import type {
+  registerFormData,
   loginFormData,
   loginResponseData,
   userResponseData,
@@ -8,6 +9,8 @@ import type {
 } from '@/api/user/type'
 //项目用户相关的请求地址
 enum API {
+  REGISTER_URL = '/api/reg',
+
   LOGIN_URL = '/api/login',
 
   USERINFO_URL = '/my/userinfo',
@@ -28,6 +31,9 @@ enum API {
 
   LOGOUT_URL = '/user/logout'
 }
+//注册接口
+export const reqregister = (data: registerFormData) =>
+  request.post(API.REGISTER_URL, data)
 //登录接口
 export const reqLogin = (data: loginFormData) =>
   request.post<any, loginResponseData>(API.LOGIN_URL, data)

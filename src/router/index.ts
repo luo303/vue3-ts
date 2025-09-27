@@ -10,6 +10,11 @@ const router = createRouter({
       name: 'login'
     },
     {
+      path: '/register',
+      component: () => import('@/views/register/index.vue'),
+      name: 'register'
+    },
+    {
       path: '/',
       component: () => import('@/views/layout/index.vue'),
       name: 'layout',
@@ -98,7 +103,8 @@ const router = createRouter({
 //添加路由前置守卫
 router.beforeEach((to, from, next) => {
   const userstore = useUserStore()
-  if (!userstore.token && to.path !== '/login') next('/login')
+  if (!userstore.token && to.path !== '/login' && to.path !== '/register')
+    next('/login')
   else next()
 })
 export default router
