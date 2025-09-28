@@ -82,7 +82,7 @@ const login = async () => {
 
   if (res.code === 0) {
     userstore.token = res.token
-    userstore.getuser()
+    await userstore.getuser()
     ElNotification({
       title: `Hi,${gettime()}`,
       message: `${userstore.nickname ? userstore.nickname : userstore.username}欢迎回来`,
