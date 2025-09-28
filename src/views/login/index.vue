@@ -52,7 +52,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Lock, User } from '@element-plus/icons-vue'
-import { reqLogin, reqUserInfo } from '@/api/user'
+import { reqLogin } from '@/api/user'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores'
 import { ElMessage, ElNotification } from 'element-plus'
@@ -82,21 +82,10 @@ const login = async () => {
 
   if (res.code === 0) {
     userstore.token = res.token
-    const result = await reqUserInfo()
-    console.log(result)
-
-    if (result.code === 0) {
-      userstore.username = result.data.username
-      userstore.avatar = result.data.user_pic
-    } else {
-      ElMessage({
-        message: '获取用户信息失败',
-        type: 'error'
-      })
-    }
+    userstore.getuser()
     ElNotification({
       title: `Hi,${gettime()}`,
-      message: `${userstore.username}欢迎回来`,
+      message: `${userstore.nickname ? userstore.nickname : userstore.username}欢迎回来`,
       type: 'success',
       duration: 1500
     })

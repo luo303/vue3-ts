@@ -248,9 +248,9 @@ onMounted(() => {
         },
         data: [
           { value: 40, name: '东莞理工官网' },
-          { value: 38, name: '飞猪' },
+          { value: 38, name: '字节' },
           { value: 32, name: '美团' },
-          { value: 30, name: '抖音' }
+          { value: 30, name: '网易' }
         ]
       }
     ],

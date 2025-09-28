@@ -24,7 +24,7 @@
       <el-avatar :size="32" :src="userstore.avatar" class="avator" />
       <el-dropdown>
         <span class="el-dropdown-link">
-          {{ userstore.username }}
+          {{ userstore.nickname ? userstore.nickname : userstore.username }}
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>

@@ -11,6 +11,8 @@ import type {
 enum API {
   REGISTER_URL = '/api/reg',
 
+  MODIFY_PWD_URL = '/my/updatepwd',
+
   LOGIN_URL = '/api/login',
 
   USERINFO_URL = '/my/userinfo',
@@ -29,7 +31,9 @@ enum API {
 
   ADD_ARTICLE_URL = '/my/article/add',
 
-  LOGOUT_URL = '/user/logout'
+  LOGOUT_URL = '/user/logout',
+
+  AVATAR_URL = '/my/update/avatar'
 }
 //注册接口
 export const reqregister = (data: registerFormData) =>
@@ -37,9 +41,18 @@ export const reqregister = (data: registerFormData) =>
 //登录接口
 export const reqLogin = (data: loginFormData) =>
   request.post<any, loginResponseData>(API.LOGIN_URL, data)
+//更改密码
+export const reqchangepwd = (data: any) =>
+  request.patch(API.MODIFY_PWD_URL, data)
 //获取用户信息
 export const reqUserInfo = () =>
   request.get<any, userResponseData>(API.USERINFO_URL)
+//更改用户基本信息
+export const reqchangeprofile = (data: any) =>
+  request.put(API.USERINFO_URL, data)
+//更换头像
+export const changeavatar = (avatar: any) =>
+  request.patch(API.AVATAR_URL, { avatar })
 //获取文章分类
 export const getchannel = () => request.get<any, any>(API.CHANNEL_URL)
 //增加文章分类
