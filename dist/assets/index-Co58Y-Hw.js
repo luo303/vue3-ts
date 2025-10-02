@@ -1,0 +1,1 @@
+import{_ as n,c as o,o as r,f as t}from"./index-sNQxKyBm.js";const s={};function c(a,e){return r(),o("div",null,[...e[0]||(e[0]=[t("h1",null,"我是404界面",-1)])])}const f=n(s,[["render",c]]);export{f as default};
