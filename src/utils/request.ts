@@ -36,7 +36,7 @@ request.interceptors.response.use(
         msg = '请求地址错误'
         break
       case 500:
-        msg = '服务器出现问题'
+        msg = '图片文件过大'
         break
       default:
         msg = '无网络'
@@ -45,7 +45,9 @@ request.interceptors.response.use(
       type: 'error',
       message: msg
     })
-    router.push('/login')
+    if (status !== 500) {
+      router.push('/login')
+    }
     return Promise.reject(error)
   }
 )

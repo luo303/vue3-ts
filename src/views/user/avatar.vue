@@ -54,8 +54,10 @@ const onuploadfile = (file: any) => {
 }
 const onUpdateAvatar = async () => {
   const res = await changeavatar(imgUrl.value)
+
   if ((res as any).code === 0) {
     ElMessage.success('更改成功')
+  } else {
   }
   userstore.getuser()
 }
