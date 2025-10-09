@@ -173,7 +173,24 @@ onMounted(() => {
         showSymbol: false,
         areaStyle: {
           opacity: 0.8,
-          color: '#fac858'
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [
+              {
+                offset: 0,
+                color: 'red' // 0% 处的颜色
+              },
+              {
+                offset: 1,
+                color: 'blue' // 100% 处的颜色
+              }
+            ],
+            global: false // 缺省为 false
+          }
         },
         emphasis: {
           focus: 'series'
@@ -190,7 +207,24 @@ onMounted(() => {
         showSymbol: false,
         areaStyle: {
           opacity: 0.8,
-          color: 'rgba(0, 82, 188)'
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [
+              {
+                offset: 0,
+                color: 'orange' // 0% 处的颜色
+              },
+              {
+                offset: 1,
+                color: 'white' // 100% 处的颜色
+              }
+            ],
+            global: false // 缺省为 false
+          }
         },
         emphasis: {
           focus: 'series'
@@ -207,7 +241,24 @@ onMounted(() => {
         showSymbol: false,
         areaStyle: {
           opacity: 0.8,
-          color: '#ee6666'
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [
+              {
+                offset: 0,
+                color: 'green' // 0% 处的颜色
+              },
+              {
+                offset: 1,
+                color: 'skyblue' // 100% 处的颜色
+              }
+            ],
+            global: false // 缺省为 false
+          }
         },
         emphasis: {
           focus: 'series'
